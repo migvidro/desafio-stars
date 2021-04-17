@@ -1,13 +1,17 @@
 <template>
-  <div>Oi</div>
+  <div>
+    <Navbar />
+    <Table />
+  </div>
 </template>
 
 <script>
-export default {
+import Navbar from "./components/navbar/Navbar.vue";
+import Table from "./components/table/Table.vue";
 
-}
+export default {
+  components: { Navbar, Table },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

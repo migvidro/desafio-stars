@@ -1,18 +1,23 @@
 <template>
   <div>
     <Navbar />
-    <Table title="Empresas"/>
+    <router-view />
   </div>
 </template>
 
 <script>
 import Navbar from "./components/navbar/Navbar.vue";
-import Table from "./components/table/Table.vue";
 
 export default {
-  components: { Navbar, Table },
+  components: { Navbar },
+  data() {
+    return {};
+  },
 };
 </script>
 
 <style>
+body {
+  font-family: Roboto, sans-serif;
+}
 </style>

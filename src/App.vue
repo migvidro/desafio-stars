@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <Table />
+    <Table title="Empresas"/>
   </div>
 </template>
 
@@ -14,4 +14,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

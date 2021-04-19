@@ -6,6 +6,7 @@
       :items="items"
       hide-default-footer
       class="elevation-1"
+      sort-by="codigo"
     >
       <template v-slot:top>
         <v-toolbar flat>

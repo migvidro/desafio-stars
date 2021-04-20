@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       dialog: false,
-      edit: false,
+      editIndex: -1,
       editedItem: {
         nome: "",
         cnpj: "",
@@ -107,7 +107,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return !this.edit ? "Novo Item" : "Editar Item";
+      return this.editIndex === -1 ? "Novo Item" : "Editar Item";
     },
   },
   methods: {

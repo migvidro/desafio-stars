@@ -5,6 +5,7 @@
       :headers="headers"
       :items="items"
       hide-default-footer
+      loading-text="Carregando..."
       class="elevation-1 ml-4 mr-4"
       sort-by="codigo"
     >
@@ -12,8 +13,16 @@
         <v-toolbar flat>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <Dialog :orig="orig" class="tableButton"/>
+          <Dialog :orig="orig" />
         </v-toolbar>
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)">
+          mdi-pencil
+        </v-icon>
+        <v-icon small @click="deleteItem(item)">
+          mdi-delete
+        </v-icon>
       </template>
     </v-data-table>
   </div>
@@ -28,6 +37,7 @@ export default {
   data() {
     return {};
   },
+  methods: {},
 };
 </script>
 
@@ -41,8 +51,5 @@ export default {
 }
 td {
   text-align: center;
-}
-.tableButton {
-  align-self: left;
 }
 </style>

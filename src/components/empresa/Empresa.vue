@@ -17,6 +17,7 @@ export default {
         { text: "Email", value: "email" },
         { text: "Telefone", value: "telefone" },
         { text: "Endereço", value: "endereco", sortable: false },
+        { text: 'Ações', value: 'actions', sortable: false },
       ],
     };
   },

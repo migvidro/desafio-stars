@@ -1,5 +1,5 @@
 <template>
-  <Table title="Funcionarios" :headers="headers" :items="funcionarios" />
+  <Table title="Funcionários" :headers="headers" :items="funcionarios" />
 </template>
 
 <script>
@@ -11,12 +11,12 @@ export default {
     return {
       funcionarios: [],
       headers: [
-        { text: "Codigo", value: "codigo" },
+        { text: "Código", value: "codigo" },
         { text: "CPF", value: "cpf" },
         { text: "Nome", value: "nome" },
         { text: "Email", value: "email" },
         { text: "Telefone", value: "telefone" },
-        { text: "Endereco", value: "endereco", sortable: false },
+        { text: "Endereço", value: "endereco", sortable: false },
         { text: "Empresa", value: "empresa" },
       ],
     };

@@ -11,12 +11,12 @@ export default {
     return {
       empresas: [],
       headers: [
-        { text: "Codigo", value: "codigo" },
+        { text: "Código", value: "codigo" },
         { text: "CNPJ", value: "cnpj" },
         { text: "Nome", value: "nome" },
         { text: "Email", value: "email" },
         { text: "Telefone", value: "telefone" },
-        { text: "Endereco", value: "endereco", sortable: false },
+        { text: "Endereço", value: "endereco", sortable: false },
       ],
     };
   },

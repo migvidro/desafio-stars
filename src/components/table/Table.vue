@@ -12,13 +12,17 @@
         <v-toolbar flat>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
         </v-toolbar>
+        <Dialog />
       </template>
     </v-data-table>
   </div>
 </template>
 
 <script>
+import Dialog from '../dialog/Dialog.vue';
+
 export default {
+  components: { Dialog },
   props: ["title", "headers", "items"],
   data() {
     return {

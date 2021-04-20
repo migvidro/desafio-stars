@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="dialog" max-width="500px" persistent>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-        New Item
+      <v-btn dark class="tableButton" v-bind="attrs" v-on="on">
+        Novo Item
       </v-btn>
     </template>
     <v-card>
@@ -19,10 +19,16 @@
                 label="Código"
               ></v-text-field>
             </v-col>
-            <v-col cols="8">
+            <v-col cols="8" v-if="orig === 'E'">
               <v-text-field
                 v-model="editedItem.cnpj"
                 label="CNPJ"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="8" v-else>
+              <v-text-field
+                v-model="editedItem.cnpj"
+                label="CPF"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -49,6 +55,12 @@
                 label="Endereço"
               ></v-text-field>
             </v-col>
+            <v-col cols="12" v-if="orig === 'F'">
+              <v-text-field
+                v-model="editedItem.empresa"
+                label="Empresa"
+              ></v-text-field>
+            </v-col>
           </v-row>
         </v-container>
       </v-card-text>
@@ -68,6 +80,7 @@
 
 <script>
 export default {
+  props: ["orig"],
   data() {
     return {
       dialog: false,
@@ -79,13 +92,16 @@ export default {
         email: "",
         telefone: "",
         endereco: "",
+        empresa: "",
       },
       defaultItem: {
-        name: "",
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        nome: "",
+        cnpj: "",
+        codigo: "",
+        email: "",
+        telefone: "",
+        endereco: "",
+        empresa: "",
       },
     };
   },
@@ -95,11 +111,16 @@ export default {
     },
   },
   methods: {
-      closeDialog(){
-          this.dialog = false;
-      }
-  }
+    closeDialog() {
+      this.dialog = false;
+    },
+  },
 };
 </script>
 
-<style></style>
+<style scoped>
+.tableButton {
+  background-color: #091d31;
+  color: #fdd92d;
+}
+</style>

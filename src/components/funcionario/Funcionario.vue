@@ -1,5 +1,5 @@
 <template>
-  <Table title="Funcionários" :headers="headers" :items="funcionarios" />
+  <Table title="Funcionários" :headers="headers" :items="funcionarios" orig="F"/>
 </template>
 
 <script>

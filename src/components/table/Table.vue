@@ -5,31 +5,29 @@
       :headers="headers"
       :items="items"
       hide-default-footer
-      class="elevation-1"
+      class="elevation-1 ml-4 mr-4"
       sort-by="codigo"
     >
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <Dialog :orig="orig" class="tableButton"/>
         </v-toolbar>
-        <Dialog />
       </template>
     </v-data-table>
   </div>
 </template>
 
 <script>
-import Dialog from '../dialog/Dialog.vue';
+import Dialog from "../dialog/Dialog.vue";
 
 export default {
   components: { Dialog },
-  props: ["title", "headers", "items"],
+  props: ["title", "headers", "items", "orig"],
   data() {
-    return {
-      
-    };
+    return {};
   },
-  
 };
 </script>
 
@@ -43,5 +41,8 @@ export default {
 }
 td {
   text-align: center;
+}
+.tableButton {
+  align-self: left;
 }
 </style>

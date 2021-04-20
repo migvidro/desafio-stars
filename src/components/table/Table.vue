@@ -14,6 +14,23 @@
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <Dialog :orig="orig" />
+          <v-dialog v-model="dialogDelete" max-width="560px">
+            <v-card>
+              <v-card-title class="headline"
+                >Tem certeza de que quer deletar esse registro?</v-card-title
+              >
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDialogDelete"
+                  >Cancelar</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >Sim</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
@@ -23,6 +40,9 @@
         <v-icon small @click="deleteItem(item)">
           mdi-delete
         </v-icon>
+      </template>
+      <template v-slot:no-data>
+        Nenhum registro encontrado
       </template>
     </v-data-table>
   </div>
@@ -35,9 +55,27 @@ export default {
   components: { Dialog },
   props: ["title", "headers", "items", "orig"],
   data() {
-    return {};
+    return {
+      dialogDelete: false,
+      itemToDelete: {},
+    };
   },
-  methods: {},
+  methods: {
+    deleteItem(item) {
+      this.dialogDelete = true;
+      this.itemToDelete = Object.assign({}, item);
+    },
+    deleteItemConfirm() {
+      const table = this.orig === "E" ? "empresas" : "funcionarios";
+      this.$http.delete(`${table}/${this.itemToDelete.key}.json`).then(() => {
+        this.closeDialogDelete();
+      });
+    },
+    closeDialogDelete() {
+      this.dialogDelete = false;
+      this.itemToDelete = {};
+    },
+  },
 };
 </script>
 

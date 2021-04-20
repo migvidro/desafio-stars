@@ -17,13 +17,17 @@ export default {
         { text: "Email", value: "email" },
         { text: "Telefone", value: "telefone" },
         { text: "Endereço", value: "endereco", sortable: false },
-        { text: 'Ações', value: 'actions', sortable: false },
+        { text: "Ações", value: "actions", sortable: false },
       ],
     };
   },
   mounted() {
     this.$http.get("empresas.json").then((res) => {
+      const objKeys = Object.keys(res.data);
       this.empresas = Object.values(res.data);
+      this.empresas.forEach((empresa, index) => {
+        empresa.key = objKeys[index];
+      });
     });
   },
 };

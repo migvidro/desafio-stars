@@ -13,7 +13,7 @@
         <v-toolbar flat>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <Dialog :orig="orig" />
+          <Dialog :orig="orig" :itemToEdit="itemToEdit" @canReload="reload" />
           <v-dialog v-model="dialogDelete" max-width="560px">
             <v-card>
               <v-card-title class="headline"
@@ -58,6 +58,7 @@ export default {
     return {
       dialogDelete: false,
       itemToDelete: {},
+      itemToEdit: {},
     };
   },
   methods: {
@@ -69,11 +70,25 @@ export default {
       const table = this.orig === "E" ? "empresas" : "funcionarios";
       this.$http.delete(`${table}/${this.itemToDelete.key}.json`).then(() => {
         this.closeDialogDelete();
+        this.reload();
       });
+    },
+    editItem(item) {
+      this.itemToEdit = item;
     },
     closeDialogDelete() {
       this.dialogDelete = false;
       this.itemToDelete = {};
+    },
+    reload() {
+      const table = this.orig === "E" ? "empresas" : "funcionarios";
+      this.$http.get(`${table}.json`).then((res) => {
+        const objKeys = Object.keys(res.data);
+        this.items = Object.values(res.data);
+        this.items.forEach((item, index) => {
+          item.key = objKeys[index];
+        });
+      });
     },
   },
 };

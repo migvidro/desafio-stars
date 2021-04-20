@@ -8,7 +8,8 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">{{ formTitle }}</span>
+          <span class="headline" v-if="orig === 'E'">Empresa</span>
+          <span class="headline" v-else>Funcionário</span>
         </v-card-title>
 
         <v-card-text>
@@ -82,11 +83,11 @@
 
 <script>
 export default {
-  props: ["orig"],
+  props: ["orig", "itemToEdit"],
   data() {
     return {
       dialog: false,
-      editIndex: -1,
+      editFlag: false,
       editedItem: {
         nome: "",
         cnpj: "",
@@ -100,6 +101,7 @@ export default {
       defaultItem: {
         nome: "",
         cnpj: "",
+        cpf: "",
         codigo: "",
         email: "",
         telefone: "",
@@ -108,29 +110,41 @@ export default {
       },
     };
   },
-  computed: {
-    formTitle() {
-      return this.editIndex === -1 ? "Novo Item" : "Editar Item";
+  watch: {
+    itemToEdit() {
+      this.editedItem = this.itemToEdit;
+      this.editFlag = true;
+      this.dialog = true;
     },
   },
   methods: {
     closeDialog() {
       this.dialog = false;
-      this.editIndex = -1;
+      this.editFlag = false;
+      this.editedItem = Object.assign({}, this.defaultItem);
     },
     save() {
-      if (this.editIndex > -1) {
-        Object.assign(this.desserts[this.editIndex], this.editedItem);
+      const table = this.orig === "E" ? "empresas" : "funcionarios";
+
+      if (this.editFlag) {
+        this.saveEditedItem(this.editedItem, table);
       } else {
-        this.saveNewItem(this.editedItem);
+        this.saveNewItem(this.editedItem, table);
       }
       this.closeDialog();
     },
-    saveNewItem(item) {
-      const table = this.orig === "E" ? "empresas" : "funcionarios";
-      this.$http.post(`${table}.json`, item).then((res) => {
-        console.log(res);
+    saveNewItem(item, table) {
+      this.$http.post(`${table}.json`, item).then(() => {
+        this.$emit('canReload');
       });
+    },
+    saveEditedItem(item, table) {
+      this.$http.patch(`${table}/${item.key}.json`, item).then(() => {
+        this.$emit('canReload');
+      });
+    },
+    reload(table) {
+      this.$http.get(`${table}.json`);
     },
   },
 };

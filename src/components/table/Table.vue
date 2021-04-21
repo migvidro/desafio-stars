@@ -1,9 +1,11 @@
 <template>
   <div>
     <h1 class="pageTitle">{{ title }}</h1>
+
     <v-data-table
       :headers="headers"
       :items="items"
+      :search="search"
       hide-default-footer
       loading-text="Carregando..."
       class="elevation-1 ml-4 mr-4"
@@ -13,7 +15,21 @@
         <v-toolbar flat>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Buscar"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-spacer></v-spacer>
           <Dialog :orig="orig" :itemToEdit="itemToEdit" @canReload="reload" />
+          <router-link to="/" v-if="orig === 'F'" class="routerLink">
+            <v-btn class="tableButton ml-5" dark>Ver Empresas</v-btn>
+          </router-link>
+          <router-link to="/funcionarios" v-else class="routerLink">
+            <v-btn class="tableButton ml-2" dark>Ver Funcionários</v-btn>
+          </router-link>
           <v-dialog v-model="dialogDelete" max-width="560px">
             <v-card>
               <v-card-title class="headline"
@@ -31,13 +47,14 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <v-spacer></v-spacer>
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">
+        <v-icon class="mr-2" @click="editItem(item)">
           mdi-pencil
         </v-icon>
-        <v-icon small @click="deleteItem(item)">
+        <v-icon class="mr-2" @click="deleteItem(item)">
           mdi-delete
         </v-icon>
       </template>
@@ -59,6 +76,7 @@ export default {
       dialogDelete: false,
       itemToDelete: {},
       itemToEdit: {},
+      search: "",
     };
   },
   methods: {
@@ -90,11 +108,12 @@ export default {
         });
       });
     },
+    changePage() {},
   },
 };
 </script>
 
-<style>
+<style scoped>
 .pageTitle {
   color: #091d31;
   font-family: Roboto, sans-serif;
@@ -104,5 +123,13 @@ export default {
 }
 td {
   text-align: center;
+}
+.tableButton {
+  background-color: #091d31;
+  color: #fdd92d;
+  text-decoration: none;
+}
+.routerLink {
+  text-decoration: none;
 }
 </style>

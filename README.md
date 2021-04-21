@@ -2,14 +2,14 @@
 
 O app é um desafio proposto pela Stars Poker Club, responsável por um CRUD de empresas e funcionários
 
-Para rodar o app, siga os comandos a seguir
+Para rodar o app, clone o projeto e siga os comandos a seguir
 
-## Project setup
+## Instalação dos pacotes
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Comando para rodar o sistema
 ```
 npm run serve
 ```
